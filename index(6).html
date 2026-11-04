@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102d52">
+  <title>കണ്ണൂർ സൗത്ത് ഉപജില്ല | കലോത്സവം 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --navy: #102d52;
+      --blue: #174b7a;
+      --gold: #e9b84b;
+      --cream: #fffaf0;
+      --ink: #172b43;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: #f2f5fa;
+      font-family: "Noto Sans Malayalam", sans-serif;
+    }
+    .topbar {
+      background: linear-gradient(120deg, #0d2544, #1c5686);
+      color: white;
+      padding: 26px 18px 30px;
+      text-align: center;
+      border-bottom: 4px solid var(--gold);
+    }
+    .topbar .eyebrow {
+      margin: 0 0 7px;
+      color: #f4d78f;
+      font-size: 13px;
+      letter-spacing: .12em;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+    }
+    .topbar h1 { margin: 0; font-size: clamp(22px, 4vw, 36px); line-height: 1.5; }
+    .topbar p { margin: 7px 0 0; color: #e6eef8; font-size: 14px; }
+    .page { width: min(1180px, calc(100% - 32px)); margin: 30px auto 55px; }
+    .intro { margin-bottom: 22px; }
+    .intro h2 { margin: 0 0 6px; font-size: 24px; color: var(--navy); }
+    .intro p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(290px, 390px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .panel {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 23px;
+      box-shadow: 0 12px 35px rgba(22, 48, 79, .07);
+    }
+    .panel h3 { margin: 0 0 18px; color: var(--navy); font-size: 19px; }
+    .field { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 7px; font-size: 14px; font-weight: 700; }
+    input, select {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font: inherit;
+      font-size: 14px;
+      color: #172b43;
+      background: #fff;
+      outline: none;
+    }
+    input:focus, select:focus { border-color: #3979b4; box-shadow: 0 0 0 3px rgba(57,121,180,.13); }
+    input[type="file"] { padding: 8px; background: #f8fafc; }
+    .hint { margin: 6px 0 0; font-size: 12px; color: #64748b; line-height: 1.5; }
+    .photo-preview {
+      display: none;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-top: 10px;
+      border: 2px solid #e9b84b;
+    }
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+    button {
+      min-height: 47px;
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .15s, filter .15s;
+    }
+    button:hover { filter: brightness(1.06); }
+    button:active { transform: scale(.98); }
+    .primary { background: linear-gradient(120deg, #174b7a, #102d52); color: white; }
+    .secondary { background: #edf2f8; color: #173858; }
+    .download { width: 100%; margin-top: 14px; background: var(--gold); color: #33250b; }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    .preview-panel { min-width: 0; }
+    .preview-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 15px; }
+    .preview-head h3 { margin: 0; color: var(--navy); font-size: 19px; }
+    .size-tag { font: 12px Arial, sans-serif; color: #52647a; background: #edf2f8; padding: 7px 10px; border-radius: 30px; white-space: nowrap; }
+    .poster-stage {
+      padding: 14px;
+      border-radius: 15px;
+      background: repeating-linear-gradient(45deg, #e8edf4, #e8edf4 10px, #f1f4f8 10px, #f1f4f8 20px);
+      overflow: hidden;
+    }
+    .poster {
+      width: 100%;
+      max-width: 540px;
+      aspect-ratio: 4 / 5;
+      margin: auto;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 8% 18%, rgba(233,184,75,.22) 0 11%, transparent 11.3%),
+        radial-gradient(circle at 94% 82%, rgba(233,184,75,.18) 0 15%, transparent 15.3%),
+        linear-gradient(145deg, #102d52 0%, #174b7a 58%, #0d2544 100%);
+      color: white;
+      padding: 5.2%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border: 3px solid #e9b84b;
+      outline: 1px solid rgba(255,255,255,.45);
+      outline-offset: -10px;
+      font-family: "Noto Sans Malayalam", sans-serif;
+    }
+    .poster:before, .poster:after {
+      content: "✦  ◆  ✦";
+      position: absolute;
+      color: rgba(245,207,119,.5);
+      font-size: clamp(12px, 2vw, 22px);
+      letter-spacing: .45em;
+    }
+    .poster:before { top: 2.3%; left: 5%; }
+    .poster:after { bottom: 2.2%; right: 5%; }
+    .poster-kicker { color: #f5d68e; font-size: clamp(10px, 1.6vw, 17px); font-weight: 700; letter-spacing: .04em; }
+    .poster-title { font-size: clamp(17px, 3.4vw, 35px); line-height: 1.45; font-weight: 800; margin: 1.5% 0 .5%; }
+    .poster-subtitle { font-size: clamp(9px, 1.55vw, 16px); color: #f8e8c4; line-height: 1.6; }
+    .gold-rule { width: 48%; height: 2px; background: linear-gradient(90deg, transparent, #e9b84b, transparent); margin: 2.5% 0; }
+    .poster-photo-wrap {
+      width: 38%;
+      aspect-ratio: 1 / 1;
+      padding: 5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fff1c7, #d99d2d);
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      margin: 1.2% 0 2%;
+      flex: 0 0 auto;
+    }
+    .poster-photo { width: 100%; height: 100%; display: block; object-fit: cover; border-radius: 50%; background: #dbe5ef; }
+    .congrats { color: #f5d68e; font-size: clamp(15px, 2.7vw, 28px); font-weight: 800; margin: 0; }
+    .student-name { font-size: clamp(17px, 3.4vw, 35px); line-height: 1.45; font-weight: 800; margin: 1% 0; overflow-wrap: anywhere; }
+    .event-name { color: #f8e8c4; font-size: clamp(11px, 1.8vw, 18px); margin: 0 0 2%; }
+    .details {
+      width: 88%;
+      display: grid;
+      gap: 1.1%;
+      margin-top: 1%;
+      text-align: left;
+    }
+    .detail-row {
+      display: grid;
+      grid-template-columns: 37% 1fr;
+      gap: 3%;
+      padding: 1.6% 3%;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 7px;
+      background: rgba(255,255,255,.09);
+      font-size: clamp(9px, 1.45vw, 15px);
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+    .detail-label { color: #f5d68e; font-weight: 700; }
+    .detail-value { color: white; font-weight: 600; }
+    .poster-footer { margin-top: auto; padding-top: 2%; color: #f5d68e; font-size: clamp(9px, 1.4vw, 14px); font-weight: 700; }
+    .empty-note { color: #64748b; font-size: 13px; text-align: center; margin: 13px 0 0; line-height: 1.6; }
+    .status { min-height: 20px; margin-top: 10px; color: #1b6b45; font-size: 13px; }
+    footer { text-align: center; color: #718096; font-size: 12px; padding: 0 15px 25px; }
+    @media (max-width: 850px) {
+      .workspace { grid-template-columns: 1fr; }
+      .panel { padding: 20px; }
+      .poster { max-width: 560px; }
+    }
+    @media (max-width: 480px) {
+      .page { width: calc(100% - 20px); margin: 16px auto 32px; }
+      .topbar { padding: 16px 10px 18px; border-bottom-width: 3px; }
+      .topbar .eyebrow { font-size: 10px; margin-bottom: 4px; }
+      .topbar h1 { font-size: 21px; line-height: 1.45; }
+      .topbar p { font-size: 12px; margin-top: 4px; }
+      .intro { margin-bottom: 14px; }
+      .intro h2 { font-size: 18px; }
+      .intro p { font-size: 12px; }
+      .workspace { gap: 14px; }
+      .panel { padding: 14px; border-radius: 12px; }
+      .panel h3, .preview-head h3 { font-size: 16px; }
+      label { font-size: 13px; }
+      input, select { min-height: 43px; font-size: 13px; }
+      .actions { grid-template-columns: 1fr 1fr; gap: 8px; }
+      button { min-height: 44px; padding: 9px 8px; font-size: 12px; }
+      .poster-stage { padding: 4px; border-radius: 10px; }
+      .poster { border-width: 2px; outline-offset: -7px; }
+      .preview-head { align-items: center; flex-direction: row; }
+      .size-tag { font-size: 10px; padding: 6px 8px; }
+      .empty-note { font-size: 11px; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <p class="eyebrow">KERALA SCHOOL KALOLSAVAM · 2026</p>
+    <h1>കണ്ണൂർ സൗത്ത് ഉപജില്ല</h1>
+    <p>കേരളാ സ്കൂൾ കലോത്സവം 2026</p>
+  </header>
+
+  <main class="page">
+    <section class="intro">
+      <h2>വിജയാഘോഷ പോസ്റ്റർ തയ്യാറാക്കാം</h2>
+      <p>വിദ്യാർത്ഥിയുടെ വിവരങ്ങൾ നൽകുക, ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുക, നിങ്ങളുടെ സ്വന്തം കലോത്സവ വിജയപോസ്റ്റർ തയ്യാറാക്കുക.</p>
+    </section>
+
+    <div class="workspace">
+      <section class="panel">
+        <h3>വിദ്യാർത്ഥിയുടെ വിവരങ്ങൾ</h3>
+        <form id="studentForm">
+          <div class="field">
+            <label for="studentName">കുട്ടിയുടെ പേര് *</label>
+            <input id="studentName" name="studentName" type="text" placeholder="വിദ്യാർത്ഥിയുടെ പേര്" required maxlength="60">
+          </div>
+          <div class="field">
+            <label for="eventName">പങ്കെടുത്ത ഇനം *</label>
+            <input id="eventName" name="eventName" type="text" placeholder="ഉദാ: മോഹിനിയാട്ടം" required maxlength="80">
+          </div>
+          <div class="field">
+            <label for="schoolName">സ്കൂൾ *</label>
+            <input id="schoolName" name="schoolName" type="text" placeholder="സ്കൂളിന്റെ പേര്" required maxlength="100">
+          </div>
+          <div class="field">
+            <label for="position">ലഭിച്ച സ്ഥാനം *</label>
+            <select id="position" name="position" required>
+              <option value="">സ്ഥാനം തിരഞ്ഞെടുക്കുക</option>
+              <option>ഒന്നാം സ്ഥാനം</option>
+              <option>രണ്ടാം സ്ഥാനം</option>
+              <option>മൂന്നാം സ്ഥാനം</option>
+              <option>പങ്കാളിത്തം</option>
+              <option>മറ്റ്</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="grade">ഗ്രേഡ് *</label>
+            <select id="grade" name="grade" required>
+              <option value="">ഗ്രേഡ് തിരഞ്ഞെടുക്കുക</option>
+              <option>A Grade</option>
+              <option>B Grade</option>
+              <option>C Grade</option>
+              <option>ഗ്രേഡ് ലഭിച്ചിട്ടില്ല</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="studentPhoto">ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുക *</label>
+            <input id="studentPhoto" name="studentPhoto" type="file" accept="image/*" required>
+            <p class="hint">JPG, PNG അല്ലെങ്കിൽ WebP ചിത്രം തിരഞ്ഞെടുക്കുക. ചിത്രം ഈ ഉപകരണത്തിൽ തന്നെ പ്രോസസ് ചെയ്യും.</p>
+            <img id="photoPreview" class="photo-preview" alt="തിരഞ്ഞെടുത്ത ഫോട്ടോയുടെ പ്രിവ്യൂ">
+          </div>
+          <div class="actions">
+            <button class="primary" type="submit">പോസ്റ്റർ തയ്യാറാക്കുക</button>
+            <button class="secondary" type="reset" id="resetButton">റീസെറ്റ് ചെയ്യുക</button>
+          </div>
+          <p id="status" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="panel preview-panel">
+        <div class="preview-head">
+          <h3>പോസ്റ്റർ പ്രിവ്യൂ</h3>
+          <span class="size-tag">1080 × 1350 px · 4:5</span>
+        </div>
+        <div class="poster-stage">
+          <article class="poster" id="poster" aria-label="വിദ്യാർത്ഥിയുടെ കലോത്സവ നേട്ട പോസ്റ്റർ">
+            <div class="poster-kicker">കണ്ണൂർ സൗത്ത് ഉപജില്ല</div>
+            <div class="poster-title">കേരളാ സ്കൂൾ<br>കലോത്സവം</div>
+            <div class="poster-subtitle">അഞ്ചരക്കണ്ടി ഹയർസെക്കൻഡറി സ്കൂളിൽ</div>
+            <div class="poster-subtitle">2026 നവംബർ 11, 12, 13, 14 തീയതികളിൽ</div>
+            <div class="gold-rule"></div>
+            <div class="poster-photo-wrap">
+              <img id="posterPhoto" class="poster-photo" alt="വിദ്യാർത്ഥിയുടെ ചിത്രം"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23dbe5ef'/%3E%3Ccircle cx='200' cy='150' r='75' fill='%2394a3b8'/%3E%3Cpath d='M65 390c10-100 65-150 135-150s125 50 135 150' fill='%2394a3b8'/%3E%3C/svg%3E">
+            </div>
+            <p class="congrats">അഭിനന്ദനങ്ങൾ!</p>
+            <div class="student-name" id="posterName">വിദ്യാർത്ഥിയുടെ പേര്</div>
+            <p class="event-name" id="posterEvent">പങ്കെടുത്ത ഇനം</p>
+            <div class="details">
+              <div class="detail-row"><span class="detail-label">സ്കൂൾ</span><span class="detail-value" id="posterSchool">സ്കൂളിന്റെ പേര്</span></div>
+              <div class="detail-row"><span class="detail-label">ലഭിച്ച സ്ഥാനം</span><span class="detail-value" id="posterPosition">സ്ഥാനം</span></div>
+              <div class="detail-row"><span class="detail-label">ഗ്രേഡ്</span><span class="detail-value" id="posterGrade">ഗ്രേഡ്</span></div>
+            </div>
+            <div class="poster-footer">കേരളാ സ്കൂൾ കലോത്സവം · 2026</div>
+          </article>
+        </div>
+        <p class="empty-note">വിവരങ്ങൾ നൽകി “പോസ്റ്റർ തയ്യാറാക്കുക” അമർത്തിയാൽ ഇവിടെ നിങ്ങളുടെ പോസ്റ്റർ കാണാം.</p>
+        <button class="download" id="downloadButton" type="button" disabled>PNG ആയി ഡൗൺലോഡ് ചെയ്യുക</button>
+      </section>
+    </div>
+  </main>
+  <footer>കണ്ണൂർ സൗത്ത് ഉപജില്ല · കേരളാ സ്കൂൾ കലോത്സവം 2026</footer>
+
+  <script>
+    const form = document.getElementById("studentForm");
+    const photoInput = document.getElementById("studentPhoto");
+    const photoPreview = document.getElementById("photoPreview");
+    const posterPhoto = document.getElementById("posterPhoto");
+    const downloadButton = document.getElementById("downloadButton");
+    const statusText = document.getElementById("status");
+    let selectedPhotoUrl = "";
+
+    photoInput.addEventListener("change", () => {
+      const file = photoInput.files && photoInput.files[0];
+      statusText.textContent = "";
+      if (!file) {
+        photoPreview.style.display = "none";
+        return;
+      }
+      if (!file.type.startsWith("image/")) {
+        photoInput.value = "";
+        statusText.textContent = "ദയവായി ഒരു ചിത്ര ഫയൽ തിരഞ്ഞെടുക്കുക.";
+        return;
+      }
+      if (selectedPhotoUrl) URL.revokeObjectURL(selectedPhotoUrl);
+      selectedPhotoUrl = URL.createObjectURL(file);
+      photoPreview.src = selectedPhotoUrl;
+      photoPreview.style.display = "block";
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const file = photoInput.files && photoInput.files[0];
+      if (!file) {
+        statusText.textContent = "ദയവായി വിദ്യാർത്ഥിയുടെ ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുക.";
+        return;
+      }
+
+      const values = {
+        name: document.getElementById("studentName").value.trim(),
+        event: document.getElementById("eventName").value.trim(),
+        school: document.getElementById("schoolName").value.trim(),
+        position: document.getElementById("position").value,
+        grade: document.getElementById("grade").value
+      };
+      if (Object.values(values).some(value => !value)) return;
+
+      document.getElementById("posterName").textContent = values.name;
+      document.getElementById("posterEvent").textContent = values.event;
+      document.getElementById("posterSchool").textContent = values.school;
+      document.getElementById("posterPosition").textContent = values.position;
+      document.getElementById("posterGrade").textContent = values.grade;
+
+      try {
+        const dataUrl = await readImageAsDataURL(file);
+        posterPhoto.src = dataUrl;
+        await posterPhoto.decode();
+        await document.fonts.ready;
+        downloadButton.disabled = false;
+        statusText.textContent = "നിങ്ങളുടെ പോസ്റ്റർ തയ്യാറായി! ഇനി PNG ആയി ഡൗൺലോഡ് ചെയ്യാം.";
+      } catch (error) {
+        statusText.textContent = "ചിത്രം ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല. മറ്റൊരു ചിത്രം തിരഞ്ഞെടുക്കുക.";
+      }
+    });
+
+    function readImageAsDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    downloadButton.addEventListener("click", async () => {
+      if (typeof html2canvas === "undefined") {
+        statusText.textContent = "ഡൗൺലോഡ് ലൈബ്രറി ലോഡ് ആയില്ല. ഇന്റർനെറ്റ് കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.";
+        return;
+      }
+      downloadButton.disabled = true;
+      statusText.textContent = "പോസ്റ്റർ തയ്യാറാക്കുന്നു...";
+      try {
+        await document.fonts.ready;
+        const poster = document.getElementById("poster");
+        const previewWidth = poster.getBoundingClientRect().width;
+        const exportScale = 1080 / previewWidth;
+        const canvas = await html2canvas(poster, {
+          backgroundColor: "#102d52",
+          scale: exportScale,
+          useCORS: true,
+          logging: false
+        });
+        const link = document.createElement("a");
+        const safeName = (document.getElementById("studentName").value.trim() || "student")
+          .replace(/[^\p{L}\p{N}-]+/gu, "_");
+        link.download = `Kalolsavam_2026_${safeName}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+        statusText.textContent = "പോസ്റ്റർ ഡൗൺലോഡ് ചെയ്തു.";
+      } catch (error) {
+        statusText.textContent = "ഡൗൺലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല. വീണ്ടും ശ്രമിക്കുക.";
+      } finally {
+        downloadButton.disabled = false;
+      }
+    });
+
+    document.getElementById("resetButton").addEventListener("click", () => {
+      setTimeout(() => {
+        document.getElementById("posterName").textContent = "വിദ്യാർത്ഥിയുടെ പേര്";
+        document.getElementById("posterEvent").textContent = "പങ്കെടുത്ത ഇനം";
+        document.getElementById("posterSchool").textContent = "സ്കൂളിന്റെ പേര്";
+        document.getElementById("posterPosition").textContent = "സ്ഥാനം";
+        document.getElementById("posterGrade").textContent = "ഗ്രേഡ്";
+        posterPhoto.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23dbe5ef'/%3E%3Ccircle cx='200' cy='150' r='75' fill='%2394a3b8'/%3E%3Cpath d='M65 390c10-100 65-150 135-150s125 50 135 150' fill='%2394a3b8'/%3E%3C/svg%3E";
+        photoPreview.style.display = "none";
+        if (selectedPhotoUrl) URL.revokeObjectURL(selectedPhotoUrl);
+        selectedPhotoUrl = "";
+        downloadButton.disabled = true;
+        statusText.textContent = "";
+      }, 0);
+    });
+  </script>
+</body>
+</html>
